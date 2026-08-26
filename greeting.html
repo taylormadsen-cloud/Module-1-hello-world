@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello, there!</title>
+    <link rel="stylesheet" href="greeting.css">
+</head>
+
+<body>
+    <main class="hello-card">
+        <p class="eyebrow">A tiny introduction</p>
+        <h1>Hello!</h1>
+        <p class="intro">Let's put a name to the greeting.</p>
+
+        <form id="name-form">
+            <label for="fname">What's your name?</label>
+            <div class="form-row">
+                <input type="text" id="fname" name="fname" placeholder="Enter your name" autocomplete="name">
+                <button type="submit">Say hello</button>
+            </div>
+        </form>
+
+        <p id="greeting" class="greeting" aria-live="polite"></p>
+    </main>
+
+    <script>
+        document.getElementById("name-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var name = document.getElementById("fname").value.trim();
+            var greeting = document.getElementById("greeting");
+
+            if (name === "") {
+                greeting.textContent = "Please enter your name first.";
+                greeting.classList.add("is-error");
+                return;
+            }
+
+            greeting.textContent = "Hello " + name + "!";
+            greeting.classList.remove("is-error");
+        });
+    </script>
+</body>
+</html>

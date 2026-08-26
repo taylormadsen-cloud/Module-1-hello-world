@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+    color: #25213a;
+    background: #f8f4ed;
+    font-family: 'DM Sans', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background-color: #f8f4ed;
+    background-image: radial-gradient(#e9d8c9 1px, transparent 1px);
+    background-size: 22px 22px;
+}
+
+.hello-card {
+    width: min(100%, 560px);
+    padding: clamp(32px, 8vw, 64px);
+    background: #fffdf9;
+    border: 1px solid #eadfd2;
+    border-radius: 8px;
+    box-shadow: 12px 12px 0 #f1c7ad;
+}
+
+.eyebrow {
+    margin: 0 0 18px;
+    color: #c25b3f;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin: 0;
+    color: #25213a;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(3rem, 10vw, 5.25rem);
+    line-height: 0.95;
+}
+
+.intro {
+    margin: 18px 0 40px;
+    color: #6e6675;
+    font-size: 1.08rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.form-row {
+    display: flex;
+    gap: 10px;
+}
+
+input,
+button {
+    min-height: 48px;
+    border-radius: 4px;
+    font: inherit;
+}
+
+input {
+    width: 100%;
+    min-width: 0;
+    padding: 0 14px;
+    color: #25213a;
+    background: #fff;
+    border: 1px solid #cfc4bb;
+}
+
+input:focus {
+    outline: 3px solid #f1c7ad;
+    border-color: #c25b3f;
+}
+
+button {
+    padding: 0 20px;
+    color: #fffdf9;
+    background: #25213a;
+    border: 1px solid #25213a;
+    cursor: pointer;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+button:hover {
+    background: #c25b3f;
+    border-color: #c25b3f;
+}
+
+button:focus-visible {
+    outline: 3px solid #f1c7ad;
+    outline-offset: 2px;
+}
+
+.greeting {
+    min-height: 1.5em;
+    margin: 28px 0 0;
+    color: #c25b3f;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+}
+
+.greeting.is-error {
+    color: #a33d35;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+    .hello-card {
+        box-shadow: 7px 7px 0 #f1c7ad;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+}
