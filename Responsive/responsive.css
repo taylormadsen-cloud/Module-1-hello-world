@@ -27,3 +27,6 @@
     flex-direction: column;
   }
 }
+body {
+  background-color: lightblue;
+}
