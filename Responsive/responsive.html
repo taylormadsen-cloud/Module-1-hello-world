@@ -24,7 +24,7 @@
     <!--  Add the alt parameter on the img tag for accessibility purposes! -->
     <p><a href="https://doaneathletics.com/sports/wsoc/2026-27/roster" target="_blank"><img src="https://cdn.prestosports.com/action/cdn/img/mw=510/mh=600/cr=n/d=jzfei/u2rrsjmwqa3cymkc.jpg" alt="Bear" title="My Dog" style="width:50%;"></a></p>
   </div>
-  
+
 <div class="myflexboxColumn" style="background-color:#990b76;">
   <h2>Entry 3 - a video</h2>
   <p>
@@ -34,6 +34,16 @@
     </video>
   </p>
 </div>
+   <div class="myflexboxColumn" style="background-color:#ddd;">
+    <h2>Entry 4 - use of the Geolocation API</h2>
+    <p>Click the button to get your coordinates.</p>
+
+    <button onclick="getLocation()">Try It</button>
+
+    <p id="demo"></p>
+
+    <!-- The Javascript for the Geolocation API is being placed in the flexbox cell where it is used.  
+    This could have also been placed at the start of this file.-->
     <script>
        var x = document.getElementById("demo");
 
