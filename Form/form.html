@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunch Menu request</title>
+    <link rel="stylesheet" href="form.css">
+</head>
+
+<body>
+<div class="form-container">
+    <h1> lunch Menu request</h1>
+    <p>Create a new lunch menu request:</p>
+    <form onsubmit="showSuccess(event)">
+
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="name" required placeholder="Enter your name">
+
+        <Label for="request">Choose your lunch option:</Label>
+        <select id="request" name="request" required>
+            <option value="">Select an option</option>
+            <option value="sandwich">Sandwich</option>
+            <option value="salad">Salad</option>
+            <option value="soup">Soup</option>
+        </select>
+        <label>Chose a main Dish:</label>
+
+        <div class="radio-group">
+            <label>
+                <input type="radio" id="main-dish-1" name="main-dish" value="Burger" required>
+                <span>Burger</span>
+            </label>
+            <label>
+                <input type="radio" id="main-dish-2" name="main-dish" value="Pasta" required>
+                <span>Pasta</span>
+            </label>
+            <label>
+                <input type="radio" id="main-dish-3" name="main-dish" value="Taco" required>
+                <span>Taco</span>
+            </label>
+        </div>
+        <label>Chose Your Sides:</label>
+        <div class="checkbox-group">
+            <label>
+                <input type="checkbox" id="side-1" name="sides" value="Fries">
+                <span>Fries</span>
+            </label>
+            <label>
+                <input type="checkbox" id="side-2" name="sides" value="Salad">
+                <span>Salad</span>
+            </label>
+            <label>
+                <input type="checkbox" id="side-3" name="sides" value="fruit">
+                <span>Fruit</span>
+            </label>
+            <label>
+                <input type="checkbox" id="side-4" name="sides" value="chips">
+                <span>Chips</span>
+            </label>
+        </div>
+        <label for="request">Special Requests:</label>
+        <textarea id="request" name="request" placeholder="Any special requests or dietary restrictions?"></textarea>
+        <button type="submit">Submit Request</button>
+    </form>
+</div>
+<script>
+    function showSuccess(event) {
+        event.preventDefault();
+        alert("Lunch menu request submitted successfully!");
+    }
+</script>
+</body>
+</html>
