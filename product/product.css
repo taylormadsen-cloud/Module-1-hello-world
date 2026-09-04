@@ -5,6 +5,11 @@ body {
     background-color: #f56cb1;
     color: #333;
 }
+header, footer {
+    background-color: #ff8fc7;
+    color: white;
+    padding: 20px 5%;
+}
 .top-bar {
     display: flex;
     justify-content: space-between;
