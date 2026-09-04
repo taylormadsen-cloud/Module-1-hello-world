@@ -5,11 +5,6 @@ body {
     background-color: #f56cb1;
     color: #333;
 }
-header, footer {
-    background-color: #ff8fc7;
-    color: white;
-    padding: 20px 5%;
-}
 .top-bar {
     display: flex;
     justify-content: space-between;
@@ -20,6 +15,11 @@ header, footer {
 }
 .logo h1 {
     margin: 0;
+}
+.logo a,
+.navigation a {
+    color: #7d4bc1;
+    text-decoration: none;
 }
 .content {
     display: flex;
@@ -117,7 +117,7 @@ summary {
     gap: 40px;
     padding: 40px 5%;
     background-color: #7d4bc1;
-    color: white;
+    color:#7d4bc1;
 }
 .map iframe {
     border-radius: 10px;
