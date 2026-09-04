@@ -21,6 +21,11 @@ body {
     color: #7d4bc1;
     text-decoration: none;
 }
+.logo a {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 2px solid white;
+}
 .content {
     display: flex;
     flex-wrap: wrap;
