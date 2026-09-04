@@ -24,7 +24,7 @@ body {
 .logo a {
     display: inline-block;
     padding: 8px 12px;
-    border: 2px solid white;
+    border: 4px dotted white;
 }
 .content {
     display: flex;
