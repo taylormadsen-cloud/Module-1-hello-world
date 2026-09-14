@@ -1,9 +1,7 @@
 *{
     background-color: #20b3b8;
- }
- {
     box-sizing: border-box;
- }
+}
   
   /* Container for flexboxes */
   .myflexboxRow {
