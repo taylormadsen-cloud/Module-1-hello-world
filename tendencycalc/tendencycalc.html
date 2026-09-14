@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, intitial-scale=1.0">
+        <title>Tendency Calculator</title>
+        <link rel="stylesheet" href="tendencycalc.css">
+        <script src="tendencycalc.js"></script>
+    </head>
+    <body>
+        <h1>List builder</h1>
+        <div class="myflexboxRow">
+            <div class="myflexColumn">
+                <h2>Form to obtain a word and place it in a list</h2>
+                <form name="myform">
+                    word to List: <input type="text" name="newWord" value=""><br />
+                    List 1 or 2?: <input type="text" name="newNumber" value=""><br /><br />
+                    <input type="button" value="Add to List" onclick="ValidateAndAdd()">
+                </form>
+            </div>
+            <div class="myflexColumn">
+                <h2>List 1</h2>
+                <table id="myList1">
+                </table>
+                <br /> <br />
+                <input type="button" value="Clear List" onclick="ClearList1()">
+            </div>
+                <div class="myflexColumn">
+                    <h2>List 2</h2>
+                    <table id="myList2">
+                    </table>
+                    <br /> <br />
+                    <input type="button" value="Clear List" onclick="ClearList2()">
+                </div>
+        </div>
+    </body>
+</html>
