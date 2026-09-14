@@ -63,8 +63,8 @@ function calculateResults() {
 
     document.getElementById("mean").textContent = mean;
 
-    // median
-    let sortedNumbers = [...numbers].sort(function (a, b) {
+    // median fix!!!!
+    let sortedNumbers = numbers.slice().sort(function (a, b) {
         return a - b;
     });
 
