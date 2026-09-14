@@ -1,32 +1,72 @@
-function ValidateAndAdd(){
-    var Newword = document.forms["myform"]["newWord"].value;
-    var Newnumber = document.forms["myform"]["newNumber"].value;
-    if ((Newword) == "") {
-        alert("Please enter a word");
-        return false;
+let lowValue;
+let highValue;
+let numbers = [];
+
+document.getElementById("setRangeButton").addEventListener("click", function () {
+    lowValue = Number(document.getElementById("low").value);
+    highValue = Number(document.getElementById("high").value);
+
+    if (lowValue >= highValue) {
+        document.getElementById("rangeMessage").textContent =
+            "make sure the low number is the lowest";
+    } else {
+        document.getElementById("rangeMessage").textContent =
+            "Range set from " + lowValue + " to " + highValue + ".";
+
+        numbers = [];
+        document.getElementById("numbers").textContent = "";
+        document.getElementById("mean").textContent = "";
+        document.getElementById("median").textContent = "";
     }
-    else if ((Newnumber != 1) && (Newnumber != 2)) {
-        alert("Please enter a 1 or 2");
-        document.forms["myform"]["newNumber"].value = "";
-        return false;
+});
+document.getElementById("addNumberButton").addEventListener("click", function () {
+    let input = Number(document.getElementById("numberInput").value);
+
+    if (lowValue == null || highValue == null) {
+    document.getElementById("inputMessage").textContent =
+        "set a range first.";
+    } else if (input < lowValue || input > highValue) {
+        document.getElementById("inputMessage").textContent =
+            "enter a number between " + lowValue + " and " + highValue + ".";
+    } else {
+        numbers.push(input);
+
+        document.getElementById("inputMessage").textContent =
+            input + " was added successfully.";
+
+        document.getElementById("numberInput").value = "";
+
+        calculateResults();
     }
-    else {
-        if (Newnumber == 1) {
-        var tableRef = document.getElementById("myList1");
-        (tableRef.insertRow(tableRef.rows.length)).innerHTML = Newword;}
-        else {
-        var tableRef = document.getElementById("myList2");
-        (tableRef.insertRow(tableRef.rows.length)).innerHTML = Newword;}
-        document.forms["myform"]["newWord"].value = "";
-        document.forms["myform"]["newNumber"].value = "";
-        return true;
+});
+
+function calculateResults() {
+
+    document.getElementById("numbers").textContent = numbers.join(", ");
+    /// mean
+    let total = 0;
+
+    for (let i = 0; i < numbers.length; i++) {
+        total += numbers[i];
     }
-}
-function ClearList1(){
-    var tableRef = document.getElementById("myList1");
-    tableRef.innerHTML = "";
-}
-function ClearList2(){
-    var tableRef = document.getElementById("myList2");
-    tableRef.innerHTML = "";
+
+    let mean = total / numbers.length;
+
+    document.getElementById("mean").textContent = mean;
+
+    // median
+    let sortedNumbers = [...numbers].sort(function (a, b) {
+        return a - b;
+    });
+
+    let middle = Math.floor(sortedNumbers.length / 2);
+    let median;
+
+    if (sortedNumbers.length % 2 === 0) {
+        median = (sortedNumbers[middle - 1] + sortedNumbers[middle]) / 2;
+    } else {
+        median = sortedNumbers[middle];
+    }
+
+    document.getElementById("median").textContent = median;
 }

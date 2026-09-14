@@ -1,37 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tendency Calculator</title>
-        <link rel="stylesheet" href="tendencycalc.css">
-        <script src="tendencycalc.js"></script>
-    </head>
-    <body>
-        <h1>List builder</h1>
-        <div class="myflexboxRow">
-            <div class="myflexboxColumn">
-                <h2>Form to obtain a word and place it in a list</h2>
-                <form name="myform">
-                    word to List: <input type="text" name="newWord" value=""><br />
-                    List 1 or 2?: <input type="text" name="newNumber" value=""><br /><br />
-                    <input type="button" value="Add to List" onclick="ValidateAndAdd()">
-                </form>
-            </div>
-            <div class="myflexboxColumn">
-                <h2>List 1</h2>
-                <table id="myList1">
-                </table>
-                <br /> <br />
-                <input type="button" value="Clear List" onclick="ClearList1()">
-            </div>
-                <div class="myflexboxColumn">
-                    <h2>List 2</h2>
-                    <table id="myList2">
-                    </table>
-                    <br /> <br />
-                    <input type="button" value="Clear List" onclick="ClearList2()">
-                </div>
-        </div>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mean and Median Calculator</title>
+    <link rel="stylesheet" href="tendencycalc.css">
+</head>
+
+<body>
+    <main class="container">
+        <h1>Mean and Median Calculator</h1>
+
+        <!-- Get the range -->
+        <section>
+            <h2>Step 1: Enter a Range</h2>
+
+            <label for="low">Low Value:</label>
+            <input type="number" id="low">
+
+            <label for="high">High Value:</label>
+            <input type="number" id="high">
+
+            <button id="setRangeButton">Set Range</button>
+
+            <p id="rangeMessage"></p>
+        </section>
+
+        <!-- Enter numbers -->
+        <section>
+            <h2>Step 2: Enter Numbers</h2>
+
+            <label for="numberInput">Enter a number:</label>
+            <input type="number" id="numberInput">
+
+            <button id="addNumberButton">Add Number</button>
+
+            <p id="inputMessage"></p>
+        </section>
+
+        <!-- Results -->
+        <section>
+            <h2>Results</h2>
+
+            <p><strong>Numbers:</strong> <span id="numbers"></span></p>
+            <p><strong>Mean:</strong> <span id="mean"></span></p>
+            <p><strong>Median:</strong> <span id="median"></span></p>
+        </section>
+    </main>
+
+    <script src="tendencycalc.js"></script>
+</body>
 </html>
+```
