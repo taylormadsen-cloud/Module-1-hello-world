@@ -1,21 +1,49 @@
 * {
   background-color: #800404;
-    box-sizing: border-box;
-    color: rgb(247, 166, 179);
-  }
-  
+  box-sizing: border-box;
+  color: rgb(247, 166, 179);
+}
+
+.myflexboxRow {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.myflexboxColumn {
+  flex: 33%;
+  padding: 20px;
+}
+
+@media screen and (max-width: 600px) {
   .myflexboxRow {
-    display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
   }
-  
-  .myflexboxColumn {
-    flex: 33%;
-    padding: 20px;
+}
+
+.results {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.results section {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.results pre,
+#formattedText {
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  .results {
+    flex-direction: column;
   }
-  
-  @media screen and (max-width: 600px) {
-    .myflexboxRow {
-      flex-direction: column;
-    }
+
+  .results section {
+    width: 100%;
   }
+}
