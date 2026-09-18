@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bacon Ipsum Generator</title>
+    <link rel="stylesheet" href="CaesarCipher.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Bacon Ipsum Generator</h1>
+    </header>
+
+    <main>
+
+        <div class="meat-options">
+
+            <label for="paragraphs">Number of Paragraphs:</label>
+            <!-- min 1 max 5; no input value will make 2 paragraphs -->
+            <input type="number" id="paragraphs" min="1" max="5" value="2">
+
+            <label for="type">Type of Bacon Ipsum:</label>
+            <select id="type">
+                <!-- select button for just meat or add filler words -->
+                <option value="meat-and-filler">Meat and Filler</option>
+                <option value="all-meat">All Meat</option>
+            </select>
+
+            <button id="getBacon">Get Bacon</button>
+
+        </div>
+
+        <div class="results">
+
+            <section>
+                <h2>Raw JSON</h2>
+                <pre id="rawJson">Your JSON will appear here.</pre>
+            </section>
+
+            <section>
+                <h2>Formatted Paragraphs</h2>
+                <div id="formattedText">
+                    Your Bacon Ipsum will appear here.
+                </div>
+            </section>
+
+            <section>
+                <h2>Encrypted</h2>
+                <pre id="encryptedText">Your encrypted text</pre>
+            </section>
+
+        </div>
+
+    </main>
+
+    <script src="CaesarCipher.js"></script>
+</body>
+</html>
