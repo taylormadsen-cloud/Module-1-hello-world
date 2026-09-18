@@ -21,16 +21,16 @@ async function getBaconIpsum() {
         .map(paragraph => `<p>${paragraph}</p>`)
         .join("");
 
-    // Convert the text to encoded binary, then to base64
+    /// Convert the text to encoded binary, then to base64
     const baconText = jsonData.join(" ");
     const encodedText = new TextEncoder().encode(encodeURIComponent(baconText));
     let binaryText = "";
-/// turns binary data into string one line at a time
+    /// turns binary data into string one line at a time
     for (const byte of encodedText) {
         binaryText += String.fromCharCode(byte);
     }
 
-    // Display the encrypted text
+    /// Display the encrypted text
     document.getElementById("encryptedText").textContent = btoa(binaryText);
 
     return true;
