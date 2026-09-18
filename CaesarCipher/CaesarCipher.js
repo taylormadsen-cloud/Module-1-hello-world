@@ -6,8 +6,8 @@ async function getBaconIpsum() {
     const paragraphCount = document.getElementById("paragraphs").value;
     const baconType = document.getElementById("type").value;
 
-    // Create the API request string
-    const apiString = `${apiUrl}?type=${baconType}&paras=${paragraphCount}`;
+    // the API request string
+    const apiString = apiUrl + "?type=" + baconType + "&paras=" + paragraphCount;
 
     // Fetch the JSON data
     const response = await fetch(apiString);
@@ -18,7 +18,7 @@ async function getBaconIpsum() {
 
     // Show the formatted paragraphs
     document.getElementById("formattedText").innerHTML = jsonData
-        .map(paragraph => `<p>${paragraph}</p>`)
+        .map(paragraph => "<p>" + paragraph + "</p>")
         .join("");
 
     /// Convert the text to encoded binary, then to base64
