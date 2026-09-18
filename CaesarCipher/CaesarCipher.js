@@ -1,52 +1,37 @@
-// ur mom
-async function getBaconIpsum() { /// async allows fucntion to await and pause until the fetch is complete
-    // api call string
+document.getElementById("getBacon").addEventListener("click", getBaconIpsum);
+
+// Get Bacon Ipsum from the API
+async function getBaconIpsum() {
     const apiUrl = "https://baconipsum.com/api/";
-
-    // Get pp from html
     const paragraphCount = document.getElementById("paragraphs").value;
-    const baconType = document.getElementById("baconType").value;
+    const baconType = document.getElementById("type").value;
 
-    // Add params to the api call string
-    const apiString = apiUrl + "?baconType=" + baconType + "&paras=" + paragraphCount;
+    // Create the API request string
+    const apiString = `${apiUrl}?type=${baconType}&paras=${paragraphCount}`;
 
-    alert(apiString);  // Show string
-
-    // Make api call links to async
+    // Fetch the JSON data
     const response = await fetch(apiString);
-
-    // taking from html
-    document.getElementById("rawData").innerHTML = "";
-    document.getElementById("formattedData").innerHTML = "";
-    document.getElementById("encryptedData").innerHTML = "";
-
-    // Read JSON response
     const jsonData = await response.json();
 
-    // Stringify put on raw json data on the page
-    document.getElementById("rawData").innerHTML =
-        JSON.stringify(jsonData);
+    // Show the raw JSON
+    document.getElementById("rawJson").textContent = JSON.stringify(jsonData, null, 2);
 
-    // Loop for json pp one time
-    for (const paragraph of jsonData) {
-        document.getElementById("formattedData").innerHTML +=
-            "<p>" + paragraph + "</p>";
-    }
+    // Show the formatted paragraphs
+    document.getElementById("formattedText").innerHTML = jsonData
+        .map(paragraph => `<p>${paragraph}</p>`)
+        .join("");
 
-    // Combine 
+    // Convert the text to encoded binary, then to base64
     const baconText = jsonData.join(" ");
-
-    // TextEncoder converts to bytes, btoa encodes the bytes in base64.
     const encodedText = new TextEncoder().encode(encodeURIComponent(baconText));
     let binaryText = "";
-    for (const byte of encodedText) { 
-        /// changes binary to string
+
+    for (const byte of encodedText) {
         binaryText += String.fromCharCode(byte);
     }
-    const encryptedData = btoa(binaryText);
 
-    // Displayencrypted data
-    document.getElementById("encryptedData").innerHTML = encryptedData;
+    // Display the encrypted text
+    document.getElementById("encryptedText").textContent = btoa(binaryText);
 
     return true;
 }
