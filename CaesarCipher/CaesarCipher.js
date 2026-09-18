@@ -14,7 +14,7 @@ async function getBaconIpsum() {
     const jsonData = await response.json();
 
     // Show the raw JSON
-    document.getElementById("rawJson").textContent = JSON.stringify(jsonData, null, 2);
+    document.getElementById("rawJson").innerHTML = JSON.stringify(jsonData);
 
     // Show the formatted paragraphs
     document.getElementById("formattedText").innerHTML = jsonData
@@ -25,7 +25,7 @@ async function getBaconIpsum() {
     const baconText = jsonData.join(" ");
     const encodedText = new TextEncoder().encode(encodeURIComponent(baconText));
     let binaryText = "";
-
+/// turns binary data into string one line at a time
     for (const byte of encodedText) {
         binaryText += String.fromCharCode(byte);
     }
