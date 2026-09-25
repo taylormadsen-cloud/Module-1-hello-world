@@ -40,10 +40,11 @@ const palindromeChecker = {
     algorithm3: function(word) {
         return word.split("").reverse().join("") === word;
     }
-},
+};
+const form = document.getElementById("form");
 // using form This gets the form from the HTML and responds on buttom
 
-/// event listener waits for click @vs ai
+/// event listener waits for click @vs ai<form id="form"><form id="form">
 form.addEventListener("submit", function(event) {
 
     // stops page from refreshing when the form submits
@@ -147,7 +148,7 @@ function addResult(listID, word, result) {
     // DISPLAY WHETHER OR NOT THE WORD IS A PALINDROME
     if (result) {
 
-        item.textContent = word + " palindrome.";
+        item.textContent = word + " is apalindrome.";
 
     } else {
 
