@@ -19,6 +19,7 @@ async function getBaconIpsum() {
     // Show the formatted paragraphs
     document.getElementById("formattedText").innerHTML = jsonData
         .map(paragraph => "<p>" + paragraph + "</p>")
+        /// combines data into one string
         .join("");
 
     /// Convert the text to encoded binary, then to base64
@@ -31,7 +32,7 @@ async function getBaconIpsum() {
     }
 
     /// Display the encrypted text
-    document.getElementById("encryptedText").textContent = btoa(binaryText);
+    document.getElementById("encryptedText").innerHTML = btoa(binaryText);
 
     return true;
 }
