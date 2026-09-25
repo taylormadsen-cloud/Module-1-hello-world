@@ -27,78 +27,38 @@
         </h1>
 
         <!-- Form used to enter the word and choose an algorithm -->
-        <form id="palindromeForm">
+        <form id="form">
 
             <!-- Word input -->
             <div class="mb-3">
+<form id="form">
+    <label for="word">Enter a word:</label>
+    <input
+        type="text"
+        id="word"
+        class="form-control"
+        placeholder="Enter a word"
+    >
 
-                <label for="word" class="form-label">
-                    Enter a word:
-                </label>
+    <label for="algorithm">Choose an algorithm:</label>
+    <select id="algorithm" class="form-select">
+        <option value="">Choose one</option>
+        <option value="1">Algorithm 1</option>
+        <option value="2">Algorithm 2</option>
+        <option value="3">Algorithm 3</option>
+    </select>
 
-                <input
-                    type="text"
-                    id="word"
-                    class="form-control"
-                    placeholder="Enter a word"
-                >
+    <input
+        type="checkbox"
+        id="caseSensitive"
+        class="form-check-input"
+    >
+    <label for="caseSensitive">Case-sensitive</label>
 
-            </div>
-
-            <!-- Choose which palindrome algorithm to use -->
-            <div class="mb-3">
-
-                <label for="algorithm" class="form-label">
-                    Choose an algorithm:
-                </label>
-
-                <select id="algorithm" class="form-select">
-
-                    <option value="">
-                        Select an algorithm
-                    </option>
-
-                    <option value="1">
-                        Algorithm 1
-                    </option>
-
-                    <option value="2">
-                        Algorithm 2
-                    </option>
-
-                    <option value="3">
-                        Algorithm 3
-                    </option>
-
-                </select>
-
-            </div>
-
-            <!-- Allows the user to choose case sensitivity -->
-            <div class="form-check mb-3">
-
-                <input
-                    type="checkbox"
-                    id="caseSensitive"
-                    class="form-check-input"
-                >
-
-                <label
-                    for="caseSensitive"
-                    class="form-check-label"
-                >
-                    Case Sensitive
-                </label>
-
-            </div>
-
-            <!-- Submit button -->
-            <button
-                type="submit"
-                class="btn btn-primary"
-            >
-                Check Palindrome
-            </button>
+    <button type="submit" class="btn btn-primary">
+        Check Palindrome
+    </button>
+</form>
 
         </form>
 
@@ -144,7 +104,6 @@
 
     <!-- JavaScript file -->
     <script src="PaliChecker.js"></script>
-<form id="form">
 </body>
 
 </html>

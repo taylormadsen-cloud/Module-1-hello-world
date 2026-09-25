@@ -148,11 +148,11 @@ function addResult(listID, word, result) {
     // DISPLAY WHETHER OR NOT THE WORD IS A PALINDROME
     if (result) {
 
-        item.textContent = word + " is apalindrome.";
+        item.textContent = word + " is a palindrome.";
 
     } else {
 
-        item.textContent = word + "NOT palindrome.";
+        item.textContent = word + " is not a palindrome.";
     }
     // Add the result to the right list
     list.appendChild(item);
