@@ -41,12 +41,17 @@ form.addEventListener("submit", function(event) {
     // validation
     if (word === "") {
         message.innerHTML = 
-        <div class="danger">select algorithm 1,2, or 3</div>;
+        '<div class="danger">select algorithm 1,2, or 3</div>';
         return;
     }
     if (algorithm!=="1" && algorithm!=="2" && algorithm!=="3"){
         message.innerHTML = 
-        <div class="danger">select algorithm 1,2, or 3</div>;
+        '<div class="danger">select algorithm 1,2, or 3</div>'';
+        return;
+    }
+    if (algorithm!=="1" && algorithm!=="2" && algorithm!=="3"){
+        message.innerHTML = 
+        '<div class="danger">select algorithm 1,2, or 3</div>';
         return;
     }  
 
