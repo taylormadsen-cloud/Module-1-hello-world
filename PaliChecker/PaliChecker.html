@@ -17,53 +17,36 @@
 
 </head>
 
-<body>
-
-    <!-- Bootstrap container -->
+<body> <!-- Bootstrap container -->
     <div class="container py-4">
+      <h1 class="text-center mb-4">Palindrome Checker</h1>
 
-        <h1 class="text-center mb-4">
-            Palindrome Checker
-        </h1>
+    <form id="form">
+        <div class="mb-3">
+            <label for="word">Enter a word:</label>
+            <input type="text" id="word" class="form-control">
+        </div>
 
-        <!-- Form used to enter the word and choose an algorithm -->
-        <form id="form">
+        <div class="mb-3">
+            <label for="algorithm">Choose an algorithm:</label>
+            <select id="algorithm" class="form-select">
+                <option value="">Choose one</option>
+                <option value="1">Algorithm 1</option>
+                <option value="2">Algorithm 2</option>
+                <option value="3">Algorithm 3</option>
+            </select>
+        </div>
 
-            <!-- Word input -->
-            <div class="mb-3">
-<form id="form">
-    <label for="word">Enter a word:</label>
-    <input
-        type="text"
-        id="word"
-        class="form-control"
-        placeholder="Enter a word"
-    >
+        <input type="checkbox" id="caseSensitive">
+        <label for="caseSensitive">Case-sensitive</label>
 
-    <label for="algorithm">Choose an algorithm:</label>
-    <select id="algorithm" class="form-select">
-        <option value="">Choose one</option>
-        <option value="1">Algorithm 1</option>
-        <option value="2">Algorithm 2</option>
-        <option value="3">Algorithm 3</option>
-    </select>
+        <button type="submit" class="btn btn-primary">
+            Check Palindrome
+        </button>
+    </form>
 
-    <input
-        type="checkbox"
-        id="caseSensitive"
-        class="form-check-input"
-    >
-    <label for="caseSensitive">Case-sensitive</label>
-
-    <button type="submit" class="btn btn-primary">
-        Check Palindrome
-    </button>
-</form>
-
-        </form>
-
-        <!-- Messages from the JavaScript appear here -->
-        <div id="message" class="mt-3"></div>
+    <!-- Keep message and results here -->
+    <div id="message" class="mt-3"></div>
 
         <!-- Results are displayed in separate lists -->
         <div class="results mt-4">
