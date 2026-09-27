@@ -145,6 +145,7 @@ function addResult(listID, word, result) {
 
     // new list item
     const item = document.createElement("li");
+
     // DISPLAY WHETHER OR NOT THE WORD IS A PALINDROME
     if (result) {
 
