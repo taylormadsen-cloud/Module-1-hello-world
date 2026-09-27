@@ -146,7 +146,7 @@ function addResult(listID, word, result) {
     // new list item
     const item = document.createElement("li");
 
-    // DISPLAY WHETHER OR NOT THE WORD IS A PALINDROME
+    // shows if word is a palindrome
     if (result) {
 
         item.textContent = word + " is a palindrome.";
