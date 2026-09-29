@@ -44,7 +44,7 @@ const palindromeChecker = {
 const form = document.getElementById("form");
 // using form This gets the form from the HTML and responds on buttom
 
-/// event listener waits for click @vs ai<form id="form"><form id="form">
+/// event listener waits for click
 form.addEventListener("submit", function(event) {
 
     // stops page from refreshing when the form submits
