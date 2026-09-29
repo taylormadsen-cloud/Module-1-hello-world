@@ -1,26 +1,12 @@
-const duckButton = document.getElementById("duckButton");
-const duckImage = document.getElementById("duckImage");
-const message = document.getElementById("message");
+const button = document.getElementById("duckButton");
+const image = document.getElementById("duckImage");
 
-duckButton.addEventListener("click", getDuck);
+button.addEventListener("click", function() {
 
-async function getDuck() {
+    fetch("https://random-d.uk/api/v2/random")
+        .then(response => response.json())
+        .then(data => {
+            image.src = data.url;
+        });
 
-    try {
-
-        message.textContent = "Finding your duck.. ";
-
-        const response = await fetch("https://random-d.uk/api/v2/random");
-
-        const data = await response.json();
-
-        duckImage.src = data.url;
-
-        message.textContent = data.message || "Powered by random-d.uk";
-
-    } catch (error) {
-
-        message.textContent = "Sorry! We couldn't find a duck.";
-
-    }
-}
+});
