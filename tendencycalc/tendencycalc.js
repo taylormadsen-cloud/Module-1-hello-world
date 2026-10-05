@@ -23,7 +23,14 @@ document.getElementById("setRangeButton").addEventListener("click", function () 
     }
 });
 document.getElementById("addNumberButton").addEventListener("click", function () {
-    let input = Number(document.getElementById("numberInput").value);
+    const numberValue = document.getElementById("numberInput").value.trim();
+    if (numberValue === "") {
+        document.getElementById("inputMessage").textContent =
+            "No data entered.";
+        return;
+    }
+
+    let input = Number(numberValue);
     /// check if the input is a number
     if (isNaN(input)) {
         document.getElementById("inputMessage").textContent =
