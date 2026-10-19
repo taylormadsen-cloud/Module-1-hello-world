@@ -32,6 +32,25 @@
         </section>
     </main>
 
-    <script src="veggie.js"></script>
+    <script>
+        document.getElementById("veggieForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const input = document.getElementById("name");
+            const veggieName = input.value.trim();
+            if (!veggieName) {
+                input.focus();
+                return;
+            }
+
+            const veggie = document.createElement("p");
+            veggie.textContent = veggieName;
+            document.getElementById("veggieList").appendChild(veggie);
+            document.getElementById("message").textContent = veggieName + " added!";
+
+            input.value = "";
+            input.focus();
+        });
+    </script>
 </body>
 </html>

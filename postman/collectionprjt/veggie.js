@@ -10,6 +10,18 @@ function initializeVeggieApp() {
         return;
     }
 
+    async function deleteVeggie(id) {
+        try {
+            const response = await fetch(`/veggies/${encodeURIComponent(id)}`, { method: "DELETE" });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            message.textContent = "Veggie deleted successfully!";
+            await loadVeggies();
+        } catch (error) {
+            message.textContent = "Unable to delete veggie. Please try again.";
+            console.error("Deleting veggie failed:", error);
+        }
+    }
+
     async function loadVeggies() {
         try {
             const response = await fetch("/veggies");
@@ -43,37 +55,28 @@ function initializeVeggieApp() {
             return;
         }
 
-    fetch("/veggies", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ name })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message) {
-                message.textContent = data.message;
-                return;
-            }
-
+        try {
+            const response = await fetch("/veggies", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name })
+            });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || `HTTP ${response.status}`);
             message.textContent = "Veggie added successfully!";
             veggieForm.reset();
-            loadVeggies();
-        });
- });
-}
-// Delete a veggie
-function deleteVeggie(id) {
-    fetch("/veggies/" + id, {
-        method: "DELETE"
-    })
-        .then(response => response.json())
-        .then(() => {
-            message.textContent = "Veggie deleted successfully!";
-            loadVeggies();
-        });
+            await loadVeggies();
+        } catch (error) {
+            message.textContent = error.message || "Unable to add veggie. Please try again.";
+            console.error("Adding veggie failed:", error);
+        }
+    });
+
+    loadVeggies();
 }
 
-// Load veggies when the page opens
-initializeVeggieApp();
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeVeggieApp);
+} else {
+    initializeVeggieApp();
+}
