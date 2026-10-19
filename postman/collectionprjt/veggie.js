@@ -9,7 +9,6 @@ function loadVeggies() {
         .then(response => response.json())
         .then(veggies => {
             veggieList.innerHTML = "";
-
             veggies.forEach(veggie => {
                 const title = document.createElement("h3");
                 title.textContent = veggie.name;
