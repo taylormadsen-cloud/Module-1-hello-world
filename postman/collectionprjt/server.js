@@ -14,7 +14,7 @@ let veggies =[
     {
         id: 2,
         name: "broccoli"
-    }
+    },
     {
         id: 3,
         name: "lettuce"
