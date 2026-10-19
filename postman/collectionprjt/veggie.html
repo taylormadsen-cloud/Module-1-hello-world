@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veggie Collection</title>
+    <link rel="stylesheet" href="veggie.css">
+</head>
+<body>
+    <header>
+        <h1>My Veggie Collection</h1>
+        <p>Keep track of your favorite veggies!</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Add a Veggie</h2>
+
+            <form id="veggieForm">
+                <input type="text" id="name"
+                    placeholder="Veggie name" required>
+
+                <input type="text" id="platform"
+                    placeholder="Platform" required>
+
+                <input type="text" id="genre"
+                    placeholder="Genre" required>
+
+                <button type="submit">Add Veggie</button>
+            </form>
+
+            <p id="message" role="status"></p>
+        </section>
+
+        <section>
+            <h2>My Veggies</h2>
+            <div id="veggieList"></div>
+        </section>
+    </main>
+
+    <script src="veggie.js"></script>
+</body>
+</html>
