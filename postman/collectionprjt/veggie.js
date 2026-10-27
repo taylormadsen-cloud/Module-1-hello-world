@@ -79,4 +79,4 @@ if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initializeVeggieApp);
 } else {
     initializeVeggieApp();
-}
+} /// disclaimer I originally wrote this all myself, it didn't work, ai supported me in fixing it
