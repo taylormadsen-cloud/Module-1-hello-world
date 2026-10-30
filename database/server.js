@@ -1,4 +1,5 @@
 
+
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
@@ -6,10 +7,12 @@ const path = require("path");
 const app = express();
 app.use(express.json());
 
+// Read customers from JSON file
 function readCustomers() {
     return JSON.parse(fs.readFileSync(path.join(__dirname, "consumers.json"), "utf8"));
 }
 
+// Save customers to JSON file
 function saveCustomers(customers) {
     fs.writeFileSync(path.join(__dirname, "consumers.json"), JSON.stringify(customers, null, 2));
 }
@@ -56,13 +59,17 @@ app.put("/customers/:id", (req, res) => {
 app.delete("/customers/:id", (req, res) => {
     let customers = readCustomers();
 
-    customers = customers.filter(c => c.id != req.params.id);
+    let newCustomers = customers.filter(c => c.id != req.params.id);
 
-    saveCustomers(customers);
+    if (newCustomers.length === customers.length) {
+        return res.send("Customer not found");
+    }
+
+    saveCustomers(newCustomers);
     res.send("Customer deleted");
 });
 
 // Start server
 app.listen(3000, () => {
-    console.log("Server running at http://localhost:5500");
+    console.log("Server running at http://localhost:3000");
 });
