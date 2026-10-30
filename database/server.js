@@ -1,16 +1,17 @@
 
 const express = require("express");
 const fs = require("fs");
+const path = require("path");
 
 const app = express();
 app.use(express.json());
 
 function readCustomers() {
-    return JSON.parse(fs.readFileSync("customers.json"));
+    return JSON.parse(fs.readFileSync(path.join(__dirname, "consumers.json"), "utf8"));
 }
 
 function saveCustomers(customers) {
-    fs.writeFileSync("customers.json", JSON.stringify(customers, null, 2));
+    fs.writeFileSync(path.join(__dirname, "consumers.json"), JSON.stringify(customers, null, 2));
 }
 
 // READ all customers
@@ -63,5 +64,5 @@ app.delete("/customers/:id", (req, res) => {
 
 // Start server
 app.listen(3000, () => {
-    console.log("Server running at http://localhost:3000");
+    console.log("Server running at http://localhost:5500");
 });
