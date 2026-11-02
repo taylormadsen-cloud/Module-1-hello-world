@@ -1,29 +1,84 @@
 
-let mysql = require('mysql2');
+const express = require("express");
+const mysql = require("mysql2");
 
-let con = mysql.createConnection({
+const app = express();
+app.use(express.json());
+
+// Connect to MySQL
+const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "Wayout10!?"
+    password: "Wayout10!?",
+    database: "customerdb"
 });
 
-con.connect(function(err) {
+db.connect(function(err) {
     if (err) throw err;
-    console.log("Connected!");
+    console.log("Connected to MySQL!");
+});
 
-    con.query("CREATE DATABASE IF NOT EXISTS customerdb", function(err, result) {
+// READ ALL CUSTOMERS
+app.get("/customers", function(req, res) {
+    db.query("SELECT * FROM customers", function(err, results) {
         if (err) throw err;
-        console.log("Database created!");
-
-        con.changeUser({database: "customerdb"}, function(err) {
-            if (err) throw err;
-
-            let sql = "CREATE TABLE IF NOT EXISTS customers (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100) NOT NULL, email VARCHAR(100), phone VARCHAR(20))";
-
-            con.query(sql, function(err, result) {
-                if (err) throw err;
-                console.log("Customer table created!");
-            });
-        });
+        res.json(results);
     });
+});
+
+// READ ONE CUSTOMER
+app.get("/customers/:id", function(req, res) {
+    db.query(
+        "SELECT * FROM customers WHERE id = ?",
+        [req.params.id],
+        function(err, results) {
+            if (err) throw err;
+            res.json(results);
+        }
+    );
+});
+
+// CREATE CUSTOMER
+app.post("/customers", function(req, res) {
+    const customer = req.body;
+
+    db.query(
+        "INSERT INTO customers (name, email, phone) VALUES (?, ?, ?)",
+        [customer.name, customer.email, customer.phone],
+        function(err, result) {
+            if (err) throw err;
+            res.json({ message: "Customer added!", id: result.insertId });
+        }
+    );
+});
+
+// UPDATE CUSTOMER
+app.put("/customers/:id", function(req, res) {
+    const customer = req.body;
+
+    db.query(
+        "UPDATE customers SET name = ?, email = ?, phone = ? WHERE id = ?",
+        [customer.name, customer.email, customer.phone, req.params.id],
+        function(err, result) {
+            if (err) throw err;
+            res.json({ message: "Customer updated!" });
+        }
+    );
+});
+
+// DELETE CUSTOMER
+app.delete("/customers/:id", function(req, res) {
+    db.query(
+        "DELETE FROM customers WHERE id = ?",
+        [req.params.id],
+        function(err, result) {
+            if (err) throw err;
+            res.json({ message: "Customer deleted!" });
+        }
+    );
+});
+
+// START SERVER
+app.listen(5500, function() {
+    console.log("Server running at http://localhost:5500");
 });
