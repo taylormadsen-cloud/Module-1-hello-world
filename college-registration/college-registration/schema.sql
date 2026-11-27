@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS college_registration;
 USE college_registration;
 
+DROP TABLE IF EXISTS student_course;
 DROP TABLE IF EXISTS course;
 DROP TABLE IF EXISTS faculty;
 DROP TABLE IF EXISTS student;
@@ -26,6 +27,15 @@ CREATE TABLE course (
   faculty_id       INT NOT NULL,
   enrollment_limit INT NULL,
   FOREIGN KEY (faculty_id) REFERENCES faculty(faculty_id)
+);
+
+CREATE TABLE student_course (
+  id         INT AUTO_INCREMENT PRIMARY KEY,
+  student_id INT NOT NULL,
+  course_id  INT NOT NULL,
+  UNIQUE KEY one_per_course (student_id, course_id),
+  FOREIGN KEY (student_id) REFERENCES student(student_id),
+  FOREIGN KEY (course_id)  REFERENCES course(course_id)
 );
 
 -- Sample data

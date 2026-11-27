@@ -31,6 +31,19 @@ function clearMessage() {
   document.getElementById('message').innerHTML = '';
 }
 
+// Fill a dropdown with options (keeps whatever was selected).
+// items: the list, idKey: which field is the value, labelFunction: how to show each one
+function fillSelect(selectId, items, idKey, labelFunction) {
+  const select = document.getElementById(selectId);
+  const keep = select.value;
+  let options = '<option value="">Select...</option>';
+  for (const item of items) {
+    options += '<option value="' + item[idKey] + '">' + esc(labelFunction(item)) + '</option>';
+  }
+  select.innerHTML = options;
+  select.value = keep;
+}
+
 // ---------- STUDENTS ----------
 
 async function loadStudents() {
@@ -191,14 +204,9 @@ async function loadCourses() {
   try {
     // fill the faculty dropdown (a course must belong to an existing faculty member)
     const faculty = await api('GET', '/faculty');
-    let options = '<option value="">Select...</option>';
-    for (const f of faculty) {
-      options += '<option value="' + f.faculty_id + '">' + esc(f.last_name + ', ' + f.first_name) + '</option>';
-    }
-    const select = document.getElementById('course-faculty');
-    const keep = select.value;
-    select.innerHTML = options;
-    select.value = keep;
+    fillSelect('course-faculty', faculty, 'faculty_id', function (f) {
+      return f.last_name + ', ' + f.first_name;
+    });
 
     const courses = await api('GET', '/courses');
     let rows = '';
@@ -274,6 +282,142 @@ function clearCourseForm() {
   document.getElementById('course-form').reset();
   document.getElementById('course-id').value = '';
   document.getElementById('course-save').textContent = 'Add Course';
+}
+
+// ---------- REGISTRATIONS (student / course) ----------
+
+// One table row for a registration (used by the full list and the roster / schedule)
+function registrationRow(r, withButtons) {
+  let row = '<tr><td>' + r.id + '</td>' +
+    '<td>' + esc(r.student_first_name + ' ' + r.student_last_name) + '</td>' +
+    '<td>' + esc(r.course_number + ' ' + (r.course_name || '')) + '</td>' +
+    '<td>' + esc(r.faculty_first_name + ' ' + r.faculty_last_name) + '</td>';
+  if (withButtons) {
+    row += '<td>' +
+      '<button class="btn btn-sm btn-outline-secondary" onclick="editRegistration(' + r.id + ')">Edit</button> ' +
+      '<button class="btn btn-sm btn-outline-danger" onclick="deleteRegistration(' + r.id + ')">Delete</button>' +
+      '</td>';
+  }
+  return row + '</tr>';
+}
+
+async function loadRegistrations() {
+  try {
+    const students = await api('GET', '/students');
+    fillSelect('reg-student', students, 'student_id', function (s) {
+      return s.last_name + ', ' + s.first_name;
+    });
+    const courses = await api('GET', '/courses');
+    fillSelect('reg-course', courses, 'course_id', function (c) {
+      return c.course_number + ' ' + (c.course_name || '');
+    });
+
+    const registrations = await api('GET', '/student-courses');
+    let rows = '';
+    for (const r of registrations) {
+      rows += registrationRow(r, true);
+    }
+    document.getElementById('registrations-table').innerHTML = rows;
+    document.getElementById('reg-detail-title').textContent = '';
+    document.getElementById('reg-detail-table').innerHTML = '';
+  } catch (err) {
+    showMessage(err.message, 'danger');
+  }
+}
+
+async function saveRegistration(event) {
+  event.preventDefault();
+  const id = document.getElementById('reg-id').value;
+  const registration = {
+    student_id: Number(document.getElementById('reg-student').value),
+    course_id: Number(document.getElementById('reg-course').value)
+  };
+  if (!registration.student_id || !registration.course_id) {
+    showMessage('Pick a student and a course.', 'warning');
+    return;
+  }
+  try {
+    if (id === '') {
+      await api('POST', '/student-courses', registration);
+      showMessage('Student registered.', 'success');
+    } else {
+      await api('PUT', '/student-courses/' + id, registration);
+      showMessage('Registration updated.', 'success');
+    }
+    clearRegistrationForm();
+    loadRegistrations();
+  } catch (err) {
+    showMessage(err.message, 'danger');
+  }
+}
+
+async function editRegistration(id) {
+  try {
+    const r = await api('GET', '/student-courses/' + id);
+    document.getElementById('reg-id').value = r.id;
+    document.getElementById('reg-student').value = r.student_id;
+    document.getElementById('reg-course').value = r.course_id;
+    document.getElementById('reg-save').textContent = 'Save Changes';
+  } catch (err) {
+    showMessage(err.message, 'danger');
+  }
+}
+
+async function deleteRegistration(id) {
+  if (!confirm('Delete registration ' + id + '?')) return;
+  try {
+    await api('DELETE', '/student-courses/' + id);
+    showMessage('Registration deleted.', 'success');
+    loadRegistrations();
+  } catch (err) {
+    showMessage(err.message, 'danger');
+  }
+}
+
+// Class roster: everyone registered in the course selected in the form
+async function showRoster() {
+  const courseId = document.getElementById('reg-course').value;
+  if (courseId === '') {
+    showMessage('Pick a course first.', 'warning');
+    return;
+  }
+  try {
+    const list = await api('GET', '/student-courses/course/' + courseId);
+    showDetail('Class roster', list);
+  } catch (err) {
+    showMessage(err.message, 'danger');
+  }
+}
+
+// Student schedule: every course the student selected in the form is registered for
+async function showSchedule() {
+  const studentId = document.getElementById('reg-student').value;
+  if (studentId === '') {
+    showMessage('Pick a student first.', 'warning');
+    return;
+  }
+  try {
+    const list = await api('GET', '/student-courses/student/' + studentId);
+    showDetail('Student schedule', list);
+  } catch (err) {
+    showMessage(err.message, 'danger');
+  }
+}
+
+function showDetail(title, list) {
+  let rows = '';
+  for (const r of list) {
+    rows += registrationRow(r, false);
+  }
+  document.getElementById('reg-detail-title').textContent = title;
+  document.getElementById('reg-detail-table').innerHTML =
+    rows || '<tr><td colspan="4">No registrations found.</td></tr>';
+}
+
+function clearRegistrationForm() {
+  document.getElementById('reg-form').reset();
+  document.getElementById('reg-id').value = '';
+  document.getElementById('reg-save').textContent = 'Register';
 }
 
 // load the first tab when the page opens

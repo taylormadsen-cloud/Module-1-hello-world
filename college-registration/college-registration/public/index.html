@@ -24,6 +24,7 @@
       <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#students-pane" onclick="clearMessage(); loadStudents()">Students</button></li>
       <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#faculty-pane" onclick="clearMessage(); loadFaculty()">Faculty</button></li>
       <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#courses-pane" onclick="clearMessage(); loadCourses()">Courses</button></li>
+      <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#registrations-pane" onclick="clearMessage(); loadRegistrations()">Registrations</button></li>
     </ul>
 
     <div class="tab-content">
@@ -116,6 +117,41 @@
         <table class="table table-striped bg-white">
           <thead><tr><th>ID</th><th>Course #</th><th>Name</th><th>Faculty</th><th>Limit</th><th></th></tr></thead>
           <tbody id="courses-table"></tbody>
+        </table>
+      </div>
+
+      <!-- ===== REGISTRATIONS (student / course) ===== -->
+      <div class="tab-pane fade" id="registrations-pane">
+        <form id="reg-form" class="card card-body mb-3" onsubmit="saveRegistration(event)">
+          <input type="hidden" id="reg-id">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label" for="reg-student">Student *</label>
+              <select class="form-select" id="reg-student"></select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="reg-course">Course *</label>
+              <select class="form-select" id="reg-course"></select>
+            </div>
+          </div>
+          <div class="mt-3">
+            <button class="btn btn-primary" id="reg-save" type="submit">Register</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="clearRegistrationForm()">Clear</button>
+            <!-- these two use the student / course selected above -->
+            <button class="btn btn-outline-primary" type="button" onclick="showRoster()">Class roster (selected course)</button>
+            <button class="btn btn-outline-primary" type="button" onclick="showSchedule()">Student schedule (selected student)</button>
+          </div>
+        </form>
+
+        <h2 class="h6" id="reg-detail-title"></h2>
+        <table class="table bg-white">
+          <tbody id="reg-detail-table"></tbody>
+        </table>
+
+        <h2 class="h6">All registrations</h2>
+        <table class="table table-striped bg-white">
+          <thead><tr><th>ID</th><th>Student</th><th>Course</th><th>Faculty</th><th></th></tr></thead>
+          <tbody id="registrations-table"></tbody>
         </table>
       </div>
 

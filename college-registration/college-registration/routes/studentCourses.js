@@ -81,3 +81,74 @@ router.get('/course/:courseId', async (req, res) => {
 // READ ALL FOR ONE STUDENT (student schedule)
 router.get('/student/:studentId', async (req, res) => {
   try {
+    const [students] = await db.query('SELECT * FROM student WHERE student_id = ?', [req.params.studentId]);
+    if (students.length === 0) return res.status(404).json({ error: 'Student not found' });
+    const [rows] = await db.query(DETAIL_SELECT + ' WHERE sc.student_id = ?', [req.params.studentId]);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// READ ONE
+router.get('/:id', async (req, res) => {
+  try {
+    const registration = await findRegistration(req.params.id);
+    if (!registration) return res.status(404).json({ error: 'Registration not found' });
+    res.json(registration);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// CREATE
+router.post('/', async (req, res) => {
+  try {
+    const student_id = req.body.student_id || null;
+    const course_id = req.body.course_id || null;
+    const problem = await checkRegistration(student_id, course_id, 0);
+    if (problem) return res.status(problem.status).json({ error: problem.error });
+
+    const [result] = await db.query(
+      'INSERT INTO student_course (student_id, course_id) VALUES (?, ?)',
+      [student_id, course_id]
+    );
+    res.status(201).json({ id: result.insertId, student_id, course_id });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// UPDATE
+router.put('/:id', async (req, res) => {
+  try {
+    const registration = await findRegistration(req.params.id);
+    if (!registration) return res.status(404).json({ error: 'Registration not found' });
+    const student_id = req.body.student_id || null;
+    const course_id = req.body.course_id || null;
+    const problem = await checkRegistration(student_id, course_id, registration.id);
+    if (problem) return res.status(problem.status).json({ error: problem.error });
+
+    await db.query(
+      'UPDATE student_course SET student_id = ?, course_id = ? WHERE id = ?',
+      [student_id, course_id, registration.id]
+    );
+    res.json({ id: registration.id, student_id, course_id });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// DELETE
+router.delete('/:id', async (req, res) => {
+  try {
+    const registration = await findRegistration(req.params.id);
+    if (!registration) return res.status(404).json({ error: 'Registration not found' });
+    await db.query('DELETE FROM student_course WHERE id = ?', [req.params.id]);
+    res.json({ message: 'Registration deleted' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+module.exports = router;

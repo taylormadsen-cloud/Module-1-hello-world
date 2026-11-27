@@ -98,11 +98,17 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE
+// DELETE (not allowed if students are registered for the course)
 router.delete('/:id', async (req, res) => {
   try {
     const course = await findCourse(req.params.id);
     if (!course) return res.status(404).json({ error: 'Course not found' });
+
+    const [enrolled] = await db.query('SELECT id FROM student_course WHERE course_id = ?', [req.params.id]);
+    if (enrolled.length > 0) {
+      return res.status(409).json({ error: 'Cannot delete: students are registered for this course' });
+    }
+
     await db.query('DELETE FROM course WHERE course_id = ?', [req.params.id]);
     res.json({ message: 'Course deleted' });
   } catch (err) {
